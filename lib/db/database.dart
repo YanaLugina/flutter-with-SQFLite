@@ -15,9 +15,9 @@ class DBProvider {
   String columnName = 'name';
 
   Future<Database> get database async {
-    if(_database != null) {
+    /*if(_database != null) {
       return _database;
-    }
+    }*/
     _database = await _initDB();
     return _database;
   }
@@ -66,7 +66,7 @@ class DBProvider {
 
   //DELETE
   Future<int> deleteStudent(int id) async {
-    Database db = await this.database;
+    Database db = await database;
     return await db.delete(
       studentsTable,
       where: '$columnId = ?',
