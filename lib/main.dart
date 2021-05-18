@@ -155,23 +155,23 @@ class _StudentPageState extends State<StudentPage> {
                 const Divider(
                   height: 5.0,
                 ),
-                Expanded(
-                    child: FutureBuilder(
-                        future: _studentsList,
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          if(snapshot.connectionState == ConnectionState.done) {
-                            if (snapshot.data == null) {
-                              return const Text('No Data Found');
-                            }
-                            else if (snapshot.hasData) {
-                              return generateList(snapshot.data);
-                            }
-                          }
-                          return const CircularProgressIndicator();
-                        },
-                      ),
-                ),
               ],
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future: _studentsList,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if(snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.data == null) {
+                      return const Text('No Data Found');
+                    }
+                    else if (snapshot.hasData) {
+                      return generateList(snapshot.data);
+                    }
+                  }
+                  return const CircularProgressIndicator();
+                },
+              ),
             ),
           ],
         ), // This trailing comma makes auto-formatting nicer for build methods.
