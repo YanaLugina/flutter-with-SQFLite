@@ -74,7 +74,7 @@ class _StudentPageState extends State<StudentPage> {
                         return null;
                       },
                       onSaved: (value) {
-                        _studentName = value;
+                        _studentName = value!.trim();
                       },
                       controller: _studentNameController,
                       decoration: const InputDecoration(
@@ -120,10 +120,9 @@ class _StudentPageState extends State<StudentPage> {
                           _formStateKey.currentState!.save();
                           DBProvider.db.insertStudent(Student(null, _studentName));
                         }
-
-                        _studentNameController.text = '';
-                        updateStudentList();
                       }
+                      _studentNameController.text = '';
+                      updateStudentList();
 
                     },
                     child: Text(
@@ -139,10 +138,9 @@ class _StudentPageState extends State<StudentPage> {
                 ElevatedButton(
                   onPressed: () {
                     _studentNameController.text = '';
-
                     setState(() {
                       isUpdate = false;
-                      // studentIdForUpdate = null;
+                      studentIdForUpdate = 0;
                     });
                   },
                   child: Text(
@@ -185,34 +183,39 @@ class _StudentPageState extends State<StudentPage> {
         width: MediaQuery.of(context).size.width,
         child: DataTable(
           columns: const <DataColumn>[
+            DataColumn(label: Text('ID')),
             DataColumn(label: Text('NAME')),
             DataColumn(label: Text('DELETE'))
           ],
           rows: List<DataRow>.generate(
               students.length,
-                  (int index) => DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Text(students[index].name!),
-                          onTap: () {
-                            setState(() {
-                              isUpdate = true;
-                              studentIdForUpdate = students[index].id!;
-                            });
-                            _studentNameController.text = students[index].name!;
+              (int index) => DataRow(
+                  cells: <DataCell>[
+                    DataCell(
+                      Text('${students[index].id!}'),
+                      onTap: () {},
+                    ),
+                    DataCell(
+                      Text(students[index].name!),
+                      onTap: () {
+                        setState(() {
+                          isUpdate = true;
+                          studentIdForUpdate = students[index].id!;
+                        });
+                        _studentNameController.text = students[index].name!;
+                        },
+                    ),
+                    DataCell(
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          DBProvider.db.deleteStudent(students[index].id!);
+                          updateStudentList();
                           },
-                        ),
-                        DataCell(
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              DBProvider.db.deleteStudent(students[index].id!);
-                              updateStudentList();
-                            },
-                          ),
-                        )
-                      ]
-                  )
+                      ),
+                    )
+                  ]
+              )
           )!,
         ),
       ),
