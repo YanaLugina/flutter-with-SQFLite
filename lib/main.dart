@@ -214,31 +214,6 @@ class _StudentPageState extends State<StudentPage> {
                       ]
                   )
           )!,
-          /*rows: students.map(
-                  (student) =>  DataRow(
-                      cells: <DataCell>[
-                        DataCell(
-                          Text(student.name),
-                          onTap: () {
-                            setState(() {
-                              isUpdate = true;
-                              studentIdForUpdate = student.id;
-                            });
-                            _studentNameController.text = student.name;
-                            },
-                        ),
-                        DataCell(
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                DBProvider.db.deleteStudent(student.id);
-                                updateStudentList();
-                              },
-                            ),
-                        )
-                      ]
-                  ),
-          ),*/
         ),
       ),
     );
