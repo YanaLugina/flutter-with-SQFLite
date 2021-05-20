@@ -216,7 +216,7 @@ class _StudentPageState extends State<StudentPage> {
                     )
                   ]
               )
-          )!,
+          ),
         ),
       ),
     );
